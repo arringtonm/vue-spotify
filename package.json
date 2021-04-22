@@ -2,6 +2,9 @@
   "name": "vue-spotify",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=10.x.x <=13.x.x"
+  },
   "scripts": {
     "serve": "vue-cli-service serve --https --open",
     "build": "vue-cli-service build",
@@ -27,11 +30,18 @@
     "@vue/cli-plugin-babel": "3.10.0",
     "@vue/cli-plugin-eslint": "3.10.0",
     "@vue/cli-service": "3.10.0",
+    "babel-eslint": "10.0.3",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "6.5.0",
+    "eslint-loader": "3.0.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-vue": "6.0.1",
     "gulp": "4.0.2",
     "gulp-iconfont": "10.0.3",
     "gulp-iconfont-css": "3.0.0",
-    "node-sass": "4.12.0",
+    "node-sass": "4.13.0",
     "normalize-scss": "7.0.1",
+    "prettier": "1.19.1",
     "rimraf": "3.0.0",
     "sass-loader": "7.2.0",
     "vue-template-compiler": "2.6.10"
@@ -48,7 +58,9 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "prettier/vue",
+      "plugin:prettier/recommended"
     ],
     "rules": {
       "no-unused-vars": 0,

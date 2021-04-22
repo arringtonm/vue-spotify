@@ -2,17 +2,19 @@
   <div v-if="user" class="navbar-nav">
     <div class="navbar-nav__item">
       <router-link
-        :to="{name: 'user', params: {id: user.id}}"
+        :to="{ name: 'user', params: { id: user.id } }"
         class="navbar-nav__link"
       >
-        {{user.display_name}}
+        {{ user.display_name }}
       </router-link>
       <button class="navbar-nav__icon" @click="onClick">
-        <icon name="chevron-down"/>
+        <icon name="chevron-down" />
       </button>
     </div>
     <transition name="fade">
       <ul class="navbar-nav__dropdown" v-show="isVisible">
+        <li class="navbar-nav__list-item" @click="onAccountClick">Account</li>
+        <li class="navbar-nav__list-item" @click="onHelpClick">Help</li>
         <li class="navbar-nav__list-item" @click="logout">Logout</li>
       </ul>
     </transition>
@@ -20,30 +22,27 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+  import { mapGetters, mapActions } from "vuex";
 
   export default {
-    name: 'navbar-nav',
+    name: "navbar-nav",
 
     data() {
       return {
         isVisible: false
-      }
+      };
     },
 
     computed: {
       ...mapGetters({
-          user: 'user/getProfile'
-        })
+        user: "user/getProfile"
+      })
     },
 
     methods: {
-      ...mapActions('auth', [
-          'logout'
-        ]
-      ),
+      ...mapActions("auth", ["logout"]),
 
-      clickOutEvent: function (e) {
+      clickOutEvent: function(e) {
         const $dropdown = this.$el.children[0];
         if (e.target !== $dropdown && !$dropdown.contains(e.target)) {
           this.close();
@@ -54,18 +53,35 @@
         this.isVisible = !this.isVisible;
 
         if (this.isVisible) {
-          setTimeout(() => document.addEventListener('click', this.clickOutEvent), 100);
+          setTimeout(
+            () => document.addEventListener("click", this.clickOutEvent),
+            100
+          );
         } else {
           this.close();
         }
       },
 
-      close: function () {
+      close: function() {
         this.isVisible = false;
-        document.removeEventListener('click', this.clickOutEvent);
+        document.removeEventListener("click", this.clickOutEvent);
+      },
+
+      onAccountClick() {
+        window.open(
+          "https://www.spotify.com/pl/account/overview/?utm_source=play&utm_campaign=wwwredirect",
+          "_blank"
+        );
+      },
+
+      onHelpClick() {
+        window.open(
+          "https://support.spotify.com/pl/?utm_campaign=wwwredirect&utm_source=play",
+          "_blank"
+        );
       }
     }
-  }
+  };
 </script>
 
 <style scoped lang="sass">
@@ -105,6 +121,9 @@
       padding: 10px
       cursor: pointer
 
+      &:hover
+        background: $c-black-light
+
     .fade-enter-active,
     .fade-leave-active
       transition: opacity .3s
@@ -112,5 +131,4 @@
     .fade-enter,
     .fade-leave-to
       opacity: 0
-
 </style>
